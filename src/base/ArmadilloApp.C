@@ -3,6 +3,7 @@
 #include "AppFactory.h"
 #include "ModulesApp.h"
 #include "MooseSyntax.h"
+#include "laplace.h"
 
 template<>
 InputParameters validParams<ArmadilloApp>()
@@ -44,7 +45,7 @@ ArmadilloApp::registerApps()
 extern "C" void ArmadilloApp__registerObjects(Factory & factory) { ArmadilloApp::registerObjects(factory); }
 void
 ArmadilloApp::registerObjects(Factory & factory)
-{
+{registerKernel(laplace);
 }
 
 // External entry point for dynamic syntax association
