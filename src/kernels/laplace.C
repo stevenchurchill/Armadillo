@@ -8,14 +8,14 @@
  */
 template<>
 InputParameters validParams<laplace>()
-
+{
   InputParameters params = validParams<Kernel>();
   params.addRequiredParam<Real>("mu", "mu (variable)");
   return params;
 }
 
 laplace::laplace(const InputParameters & parameters) :
-  // You must call the constructor of the base class first
+  Kernel(parameters),
    _mu(getParam<Real>("mu"))
 {}
 
@@ -28,5 +28,5 @@ Real laplace::computeQpResidual()
 Real laplace::computeQpJacobian()
 {
   // the partial derivative of _grad_u is just _grad_phi[_j]
-  return _grad_test[_i][_qp]*(_mu*_grad_u[_j][_qp]);
+  return _grad_test[_i][_qp]*(_mu*_grad_phi[_j][_qp]);
 }

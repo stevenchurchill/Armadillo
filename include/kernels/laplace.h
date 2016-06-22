@@ -10,7 +10,7 @@ class laplace;
 template<>
 InputParameters validParams<laplace>();
 
-class laplace : public kernel
+class laplace : public Kernel
 {
 public:
 
@@ -23,7 +23,7 @@ protected:
 
 private:
   
-  Real_mu;
+  Real _mu;
 };
 
 #endif // laplace_H
