@@ -1,9 +1,11 @@
 #include "ArmadilloApp.h"
 #include "Moose.h"
 #include "AppFactory.h"
-#include "ModulesApp.h"
 #include "MooseSyntax.h"
-#include "laplace.h"
+#include "Laplace.h"
+
+//Specific Modules
+#include "TensorMechanicsApp.h"
 
 template<>
 InputParameters validParams<ArmadilloApp>()
@@ -21,11 +23,14 @@ ArmadilloApp::ArmadilloApp(InputParameters parameters) :
     MooseApp(parameters)
 {
   Moose::registerObjects(_factory);
-  ModulesApp::registerObjects(_factory);
+  //ModulesApp::registerObjects(_factory);
   ArmadilloApp::registerObjects(_factory);
 
+  TensorMechanicsApp::registerObjects(_factory);
+  TensorMechanicsApp::associateSyntax(_syntax, _action_factory);
+
   Moose::associateSyntax(_syntax, _action_factory);
-  ModulesApp::associateSyntax(_syntax, _action_factory);
+  //ModulesApp::associateSyntax(_syntax, _action_factory);
   ArmadilloApp::associateSyntax(_syntax, _action_factory);
 }
 
@@ -45,7 +50,8 @@ ArmadilloApp::registerApps()
 extern "C" void ArmadilloApp__registerObjects(Factory & factory) { ArmadilloApp::registerObjects(factory); }
 void
 ArmadilloApp::registerObjects(Factory & factory)
-{registerKernel(laplace);
+{
+  registerKernel(Laplace);
 }
 
 // External entry point for dynamic syntax association
