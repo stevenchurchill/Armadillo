@@ -3,6 +3,7 @@
 #include "AppFactory.h"
 #include "MooseSyntax.h"
 #include "Laplace.h"
+#include "LaplaceMat.h"
 
 //Specific Modules
 #include "TensorMechanicsApp.h"
@@ -51,7 +52,7 @@ extern "C" void ArmadilloApp__registerObjects(Factory & factory) { ArmadilloApp:
 void
 ArmadilloApp::registerObjects(Factory & factory)
 {
-  registerKernel(Laplace);
+  registerKernel(Laplace); registerKernel(LaplaceMat);
 }
 
 // External entry point for dynamic syntax association
