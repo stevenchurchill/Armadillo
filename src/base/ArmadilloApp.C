@@ -52,7 +52,8 @@ extern "C" void ArmadilloApp__registerObjects(Factory & factory) { ArmadilloApp:
 void
 ArmadilloApp::registerObjects(Factory & factory)
 {
-  registerKernel(Laplace); registerKernel(LaplaceMat);
+  registerKernel(Laplace); 
+  registerKernel(LaplaceMat);
 }
 
 // External entry point for dynamic syntax association
