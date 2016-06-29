@@ -37,13 +37,13 @@ LaplaceMat::LaplaceMat(const InputParameters & parameters) :
 Real LaplaceMat::computeQpResidual()
 {
 
-  return _test[_i][_qp]*((_mu00*_mu01*_mu02)*_grad_u[_qp](0)+(_mu10*_mu11*_mu12)*_grad_u[_qp](1)+(_mu20*_mu21*_mu22)*_grad_u[_qp](2));
+  return _grad_test[_i][_qp](0)*_mu00*_grad_u[_qp](0)+_grad_test[_i][_qp](1)*_mu10*_grad_u[_qp](0)+_grad_test[_i][_qp](2)*_mu20*_grad_u[_qp](0)+_grad_test[_i][_qp](0)*_mu01*_grad_u[_qp](1)+_grad_test[_i][_qp](1)*_mu11*_grad_u[_qp](1)+_grad_test[_i][_qp](2)*_mu21*_grad_u[_qp](1)+_grad_test[_i][_qp](0)*_mu02*_grad_u[_qp](2)+_grad_test[_i][_qp](1)*_mu12*_grad_u[_qp](2)+_grad_test[_i][_qp](2)*_mu22*_grad_u[_qp](2);
 }
 
 Real LaplaceMat::computeQpJacobian()
 {
 
-  return _test[_i][_qp]*((_mu00*_mu01*_mu02)*_grad_phi[_j][_qp](0)+(_mu10*_mu11*_mu12)*_grad_phi[_j][_qp](1)+(_mu20*_mu21*_mu22)*_grad_phi[_j][_qp](2));
+  return _grad_test[_i][_qp](0)*_mu00*_grad_phi[_j][_qp](0)+_grad_test[_i][_qp](1)*_mu10*_grad_phi[_j][_qp](0)+_grad_test[_i][_qp](2)*_mu20*_grad_phi[_j][_qp](0)+_grad_test[_i][_qp](0)*_mu01*_grad_phi[_j][_qp](1)+_grad_test[_i][_qp](1)*_mu11*_grad_phi[_j][_qp](1)+_grad_test[_i][_qp](2)*_mu21*_grad_phi[_j][_qp](1)+_grad_test[_i][_qp](0)*_mu02*_grad_phi[_j][_qp](2)+_grad_test[_i][_qp](1)*_mu12*_grad_phi[_j][_qp](2)+_grad_test[_i][_qp](2)*_mu22*_grad_phi[_j][_qp](2);
 }
 
 
