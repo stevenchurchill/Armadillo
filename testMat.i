@@ -1,9 +1,9 @@
 [Mesh]
   type = GeneratedMesh
   dim = 3
-  nx = 20 #number of elements along x
-  ny = 20 #number of elements along y
-  nz = 20 #number of elements along z
+  nx = 15 #number of elements along x
+  ny = 15 #number of elements along y
+  nz = 15 #number of elements along z
   xmin = -12
   xmax = 12
   ymin = -12
@@ -28,13 +28,13 @@
     type = LaplaceMat
     variable = PhiM
     mu00 = 1.0
-    mu01 = 1.0
-    mu02 = 1.0
-    mu10 = 1.0
+    mu01 = 0
+    mu02 = 0
+    mu10 = 0
     mu11 = 1.0
-    mu12 = 1.0
-    mu20 = 1.0
-    mu21 = 1.0
+    mu12 = 0
+    mu20 = 0
+    mu21 = 0
     mu22 = 1.0	
   [../]
 []
