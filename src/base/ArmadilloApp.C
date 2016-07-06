@@ -4,7 +4,6 @@
 #include "MooseSyntax.h"
 #include "Laplace.h"
 #include "LaplaceMat.h"
-#include "LaplaceMat2.h"
 
 //Specific Modules
 #include "TensorMechanicsApp.h"
@@ -55,7 +54,6 @@ ArmadilloApp::registerObjects(Factory & factory)
 {
   registerKernel(Laplace); 
   registerKernel(LaplaceMat);
-  registerKernel(LaplaceMat2);
 }
 
 // External entry point for dynamic syntax association

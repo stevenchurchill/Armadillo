@@ -9,17 +9,13 @@
 []
 
 [Variables]
-  active = 'PhiM PhiM2'
+  active = 'PhiM'
 
   [./PhiM]
     order = FIRST
     family = LAGRANGE
   [../]
 
-  [./PhiM2]
-    order = FIRST
-    family = LAGRANGE
-  [../]
 []
 
 [Kernels]
@@ -27,6 +23,7 @@
   [./lp]
     type = LaplaceMat
     variable = PhiM
+    block = '1'
     mu00 = 1.0
     mu01 = 0
     mu02 = 0
@@ -39,17 +36,18 @@
   [../]
 
   [./lp2]
-    type = LaplaceMat2
-    variable = PhiM2
-    mu00 = 1.0
-    mu01 = 0
+    type = LaplaceMat
+    variable = PhiM
+    block = '2'
+    mu00 = 0
+    mu01 = 1.0
     mu02 = 0
     mu10 = 0
-    mu11 = 1.0
-    mu12 = 0
-    mu20 = 0
+    mu11 = 0
+    mu12 = 1.0
+    mu20 = 1.0
     mu21 = 0
-    mu22 = 1.0	
+    mu22 = 0	
   [../]
 []
 
@@ -99,7 +97,7 @@
 
   [./7]
     type = DirichletBC
-    variable = PhiM2
+    variable = PhiM
     boundary = '7'
     value = 0
   [../]
