@@ -4,6 +4,9 @@
 #include "MooseSyntax.h"
 #include "Laplace.h"
 #include "LaplaceMat.h"
+#include "BxFieldAux.h"
+#include "ByFieldAux.h"
+#include "BzFieldAux.h"
 
 //Specific Modules
 #include "TensorMechanicsApp.h"
@@ -54,6 +57,9 @@ ArmadilloApp::registerObjects(Factory & factory)
 {
   registerKernel(Laplace); 
   registerKernel(LaplaceMat);
+  registerAuxKernel(BxFieldAux);
+  registerAuxKernel(ByFieldAux);
+  registerAuxKernel(BzFieldAux);
 }
 
 // External entry point for dynamic syntax association
