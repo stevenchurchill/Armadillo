@@ -15,6 +15,7 @@
     order = FIRST
     family = LAGRANGE
   [../]
+
 []
 
 [AuxVariables]
@@ -41,36 +42,31 @@
   [./lp]
     type = LaplaceMat
     variable = PhiM
-    mu00 = 1.0
+    block = '1'
+    mu00 = 2.0
     mu01 = 0
     mu02 = 0
+    mu10 = 2.0
+    mu11 = 0
+    mu12 = 0
+    mu20 = 2.0
+    mu21 = 0
+    mu22 = 0	
+  [../]
+
+  [./lp2]
+    type = LaplaceMat
+    variable = PhiM
+    block = '2'
+    mu00 = 1.0
+    mu01 = 1.0
+    mu02 = 1.0
     mu10 = 0
-    mu11 = 1.0
+    mu11 = 0
     mu12 = 0
     mu20 = 0
     mu21 = 0
-    mu22 = 1.0	
-  [../]
-[]
-
-[AuxKernels]
-
-  [./lp2]
-    type = BxFieldAux
-    variable = PhiM_x
-    BxVec = 0
-  [../]
-
-  [./lp3]
-    type = ByFieldAux
-    variable = PhiM_y
-    ByVec = 0
-  [../]
-
-  [./lp4]
-    type = BzFieldAux
-    variable = PhiM_z
-    BzVec = 0	
+    mu22 = 0	
   [../]
 []
 
@@ -79,19 +75,16 @@
   [./lp3]
     type = BxFieldAux
     variable = PhiM_x
-    BxVec = 0
   [../]
 
   [./lp4]
     type = ByFieldAux
     variable = PhiM_y
-    ByVec = 0
   [../]
 
   [./lp5]
     type = BzFieldAux
-    variable = PhiM_z
-    BzVec = 0	
+    variable = PhiM_z	
   [../]
 []
 
@@ -101,14 +94,14 @@
     type = DirichletBC
     variable = PhiM
     boundary = '1'
-    value = 10
+    value = -1
   [../]
 
   [./2]
     type = DirichletBC
     variable = PhiM
     boundary = '2'
-    value = 10
+    value = 1
   [../]
 
 []
