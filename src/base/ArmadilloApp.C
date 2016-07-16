@@ -7,6 +7,7 @@
 #include "BxFieldAux.h"
 #include "ByFieldAux.h"
 #include "BzFieldAux.h"
+#include "BMag.h"
 
 //Specific Modules
 #include "TensorMechanicsApp.h"
@@ -60,6 +61,7 @@ ArmadilloApp::registerObjects(Factory & factory)
   registerAuxKernel(BxFieldAux);
   registerAuxKernel(ByFieldAux);
   registerAuxKernel(BzFieldAux);
+  registerAuxKernel(BMag);
 }
 
 // External entry point for dynamic syntax association
