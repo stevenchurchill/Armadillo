@@ -6,14 +6,14 @@ InputParameters validParams<ByFieldAux>()
 
 {
   InputParameters params = validParams<AuxKernel>();
-  params.addCoupledVar("ByVec", "y component of vector");
+  params.addCoupledVar("PhiM", "potential");
   return params;
 }
 
 
 ByFieldAux::ByFieldAux(const InputParameters & parameters) :
   AuxKernel(parameters),
-   _grad_PhiM(coupledGradient("ByVec"))
+   _PhiM_grad(coupledGradient("PhiM"))
 {
 }
 
@@ -21,5 +21,5 @@ Real
 ByFieldAux::computeValue()
 
 {
-    return - _grad_PhiM[_qp](1);
+    return - _PhiM_grad[_qp](1);
 }

@@ -6,14 +6,14 @@ InputParameters validParams<BzFieldAux>()
 
 {
   InputParameters params = validParams<AuxKernel>();
-  params.addCoupledVar("BzVec", "z component of vector");
+  params.addCoupledVar("PhiM", "potential");
   return params;
 }
 
 
 BzFieldAux::BzFieldAux(const InputParameters & parameters) :
   AuxKernel(parameters),
-   _grad_PhiM(coupledGradient("BzVec"))
+   _PhiM_grad(coupledGradient("PhiM"))
 {
 }
 
@@ -21,5 +21,5 @@ Real
 BzFieldAux::computeValue()
 
 {
-    return - _grad_PhiM[_qp](2);
+    return - _PhiM_grad[_qp](2);
 }

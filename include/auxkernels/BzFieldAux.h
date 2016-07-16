@@ -21,7 +21,7 @@ protected:
   virtual Real computeValue();
 
 private:
-  const VariableGradient & _grad_PhiM;
+  const VariableGradient & _PhiM_grad;
 
 };
 

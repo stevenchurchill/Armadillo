@@ -6,14 +6,14 @@ InputParameters validParams<BxFieldAux>()
 
 {
   InputParameters params = validParams<AuxKernel>();
-  params.addCoupledVar("BxVec", "x component of vector");
+  params.addCoupledVar("PhiM", "potential");
   return params;
 }
 
 
 BxFieldAux::BxFieldAux(const InputParameters & parameters) :
   AuxKernel(parameters),
-   _grad_PhiM(coupledGradient("BxVec"))
+   _PhiM_grad(coupledGradient("PhiM"))
 {
 }
 
@@ -21,5 +21,5 @@ Real
 BxFieldAux::computeValue()
 
 {
-    return - _grad_PhiM[_qp](0);
+    return - _PhiM_grad[_qp](0);
 }

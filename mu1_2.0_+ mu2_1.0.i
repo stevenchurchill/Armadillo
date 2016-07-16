@@ -18,30 +18,27 @@
 
 []
 
-[AuxVariables]
-
-  [./B_x]
-    order = CONSTANT
-    family = MONOMIAL
-  [../]
-
-  [./B_y]
-    order = CONSTANT
-    family = MONOMIAL
-  [../]
-
-  [./B_z]
-    order = CONSTANT
-    family = MONOMIAL
-  [../]
-[]
-
 [Kernels]
 
   [./lp]
     type = LaplaceMat
     variable = PhiM
     block = '1'
+    mu00 = 2.0
+    mu01 = 0
+    mu02 = 0
+    mu10 = 0
+    mu11 = 2.0
+    mu12 = 0
+    mu20 = 0
+    mu21 = 0
+    mu22 = 2.0	
+  [../]
+
+  [./lp2]
+    type = LaplaceMat
+    variable = PhiM
+    block = '2'
     mu00 = 1.0
     mu01 = 0
     mu02 = 0
@@ -50,43 +47,7 @@
     mu12 = 0
     mu20 = 0
     mu21 = 0
-    mu22 = 1.0
-  [../]
-
-  [./lp2]
-    type = LaplaceMat
-    variable = PhiM
-    block = '2'
-    mu00 = 2.0
-    mu01 = 0
-    mu02 = 0
-    mu10 = 2.0
-    mu11 = 0
-    mu12 = 0
-    mu20 = 2.0
-    mu21 = 2.0
-    mu22 = 2.0	
-  [../]
-[]
-
-[AuxKernels]
-
-  [./lp3]
-    PhiM = PhiM
-    type = BxFieldAux
-    variable = B_x
-  [../]
-
-  [./lp4]
-    PhiM = PhiM
-    type = ByFieldAux
-    variable = B_y
-  [../]
-
-  [./lp5]
-    PhiM = PhiM
-    type = BzFieldAux
-    variable = B_z	
+    mu22 = 1.0	
   [../]
 []
 

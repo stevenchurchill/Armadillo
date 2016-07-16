@@ -19,18 +19,19 @@
 []
 
 [AuxVariables]
+  active = 'PhiM_x PhiM_y PhiM_z'
 
-  [./B_x]
+  [./PhiM_x]
     order = CONSTANT
     family = MONOMIAL
   [../]
 
-  [./B_y]
+  [./PhiM_y]
     order = CONSTANT
     family = MONOMIAL
   [../]
 
-  [./B_z]
+  [./PhiM_z]
     order = CONSTANT
     family = MONOMIAL
   [../]
@@ -58,9 +59,9 @@
     variable = PhiM
     block = '2'
     mu00 = 2.0
-    mu01 = 0
-    mu02 = 0
-    mu10 = 2.0
+    mu01 = 2.0
+    mu02 = 2.0
+    mu10 = 0
     mu11 = 0
     mu12 = 0
     mu20 = 2.0
@@ -72,21 +73,18 @@
 [AuxKernels]
 
   [./lp3]
-    PhiM = PhiM
     type = BxFieldAux
-    variable = B_x
+    variable = PhiM_x
   [../]
 
   [./lp4]
-    PhiM = PhiM
     type = ByFieldAux
-    variable = B_y
+    variable = PhiM_y
   [../]
 
   [./lp5]
-    PhiM = PhiM
     type = BzFieldAux
-    variable = B_z	
+    variable = PhiM_z	
   [../]
 []
 
