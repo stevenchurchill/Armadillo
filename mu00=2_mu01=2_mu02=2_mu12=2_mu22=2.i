@@ -19,22 +19,25 @@
 []
 
 [AuxVariables]
-  active = 'PhiM_x PhiM_y PhiM_z'
 
-  [./PhiM_x]
+  [./B_x]
     order = CONSTANT
     family = MONOMIAL
   [../]
 
-  [./PhiM_y]
+  [./B_y]
     order = CONSTANT
     family = MONOMIAL
   [../]
 
-  [./PhiM_z]
+  [./B_z]
     order = CONSTANT
     family = MONOMIAL
   [../]
+
+  [./B_mag]
+    order = CONSTANT
+    family = MONOMIAL
 []
 
 [Kernels]
@@ -73,19 +76,31 @@
 [AuxKernels]
 
   [./lp3]
+    PhiM = PhiM
+    execute_on = 'timestep_end'
     type = BxFieldAux
-    variable = PhiM_x
+    variable = B_x
   [../]
 
   [./lp4]
+    PhiM = PhiM
+    execute_on = 'timestep_end'
     type = ByFieldAux
-    variable = PhiM_y
+    variable = B_y
   [../]
 
   [./lp5]
+    PhiM = PhiM
+    execute_on = 'timestep_end'
     type = BzFieldAux
-    variable = PhiM_z	
+    variable = B_z	
   [../]
+
+  [./lp6]
+    PhiM = PhiM
+    execute_on = 'timestep_end'
+    type = BMag
+    variable = B_mag
 []
 
 [BCs]
@@ -112,6 +127,13 @@
 []
 
 [Outputs]
-  execute_on = 'timestep_end'
-  exodus = true
+
+   print_perf_log = true
+  [./out]
+    type = Exodus
+    elemental_as_nodal = true
+    execute_on = 'timestep_end'
+  [../]
+[]
+
 []

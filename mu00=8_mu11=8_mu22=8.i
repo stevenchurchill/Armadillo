@@ -18,6 +18,28 @@
 
 []
 
+[AuxVariables]
+
+  [./B_x]
+    order = CONSTANT
+    family = MONOMIAL
+  [../]
+
+  [./B_y]
+    order = CONSTANT
+    family = MONOMIAL
+  [../]
+
+  [./B_z]
+    order = CONSTANT
+    family = MONOMIAL
+  [../]
+
+  [./B_mag]
+    order = CONSTANT
+    family = MONOMIAL
+[]
+
 [Kernels]
 
   [./lp]
@@ -32,23 +54,53 @@
     mu12 = 0
     mu20 = 0
     mu21 = 0
-    mu22 = 2.0	
+    mu22 = 2.0
   [../]
 
   [./lp2]
     type = LaplaceMat
     variable = PhiM
     block = '2'
-    mu00 = 1.0
+    mu00 = 8.0
     mu01 = 0
     mu02 = 0
     mu10 = 0
-    mu11 = 1.0
+    mu11 = 8.0
     mu12 = 0
     mu20 = 0
     mu21 = 0
-    mu22 = 1.0	
+    mu22 = 8.0	
   [../]
+[]
+
+[AuxKernels]
+
+  [./lp3]
+    PhiM = PhiM
+    execute_on = 'timestep_end'
+    type = BxFieldAux
+    variable = B_x
+  [../]
+
+  [./lp4]
+    PhiM = PhiM
+    execute_on = 'timestep_end'
+    type = ByFieldAux
+    variable = B_y
+  [../]
+
+  [./lp5]
+    PhiM = PhiM
+    execute_on = 'timestep_end'
+    type = BzFieldAux
+    variable = B_z	
+  [../]
+
+  [./lp6]
+    PhiM = PhiM
+    execute_on = 'timestep_end'
+    type = BMag
+    variable = B_mag
 []
 
 [BCs]
@@ -75,6 +127,13 @@
 []
 
 [Outputs]
-  execute_on = 'timestep_end'
-  exodus = true
+
+   print_perf_log = true
+  [./out]
+    type = Exodus
+    elemental_as_nodal = true
+    execute_on = 'timestep_end'
+  [../]
+[]
+
 []

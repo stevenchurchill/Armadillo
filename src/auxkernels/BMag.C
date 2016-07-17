@@ -13,7 +13,7 @@ InputParameters validParams<BMag>()
 
 BMag::BMag(const InputParameters & parameters) :
   AuxKernel(parameters),
-   _PhiM_grad(coupledGradient("potential"))
+   _PhiM_grad(coupledGradient("PhiM"))
 {
 }
 
