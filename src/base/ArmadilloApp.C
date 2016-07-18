@@ -8,6 +8,7 @@
 #include "ByFieldAux.h"
 #include "BzFieldAux.h"
 #include "BMag.h"
+#include "ExternalField.h"
 
 //Specific Modules
 #include "TensorMechanicsApp.h"
@@ -58,6 +59,7 @@ ArmadilloApp::registerObjects(Factory & factory)
 {
   registerKernel(Laplace); 
   registerKernel(LaplaceMat);
+  registerKernel(ExternalField);
   registerAuxKernel(BxFieldAux);
   registerAuxKernel(ByFieldAux);
   registerAuxKernel(BzFieldAux);
