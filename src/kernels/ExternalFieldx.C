@@ -29,13 +29,13 @@ ExternalFieldx::ExternalFieldx(const InputParameters & parameters) :
 Real ExternalFieldx::computeQpResidual()
 {
 
-  return _test[_i][_qp]*(_H_z[_qp]-_H_y[_qp]-_J_x);
+  return _test[_i][_qp](0)*((_grad_H_z[_qp](1)-_grad_H_y[_qp](2)-J_x);
 }
 
 Real ExternalFieldx::computeQpJacobian()
 {
 
-  return _test[_i][_qp]*(_H_z[_qp]-_H_y[_qp]-_J_x);
+  return _test[_i][_qp](0)*((_grad_H_z[_qp](1)-_grad_H_y[_qp](2)-J_x);
 }
 
 
