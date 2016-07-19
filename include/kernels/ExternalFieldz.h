@@ -20,9 +20,12 @@ protected:
   virtual Real computeQpJacobian();
 
 private:
-  const VariableValue& _H_x;
-  const VariableValue& _H_y;
-  const VariableValue& _H_z;  
+  const VariableValue & _H_x;
+  const VariableValue & _H_y;
+  const VariableValue & _H_z;
+  const VariableGradient & _H_x;
+  const VariableGradient & _H_y;
+  const VariableGradient & _H_z;  
   const Real _J_x;
   const Real _J_y;
   const Real _J_z;

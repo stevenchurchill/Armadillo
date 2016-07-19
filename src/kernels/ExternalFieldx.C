@@ -20,6 +20,9 @@ ExternalFieldx::ExternalFieldx(const InputParameters & parameters) :
    _H_x(coupledValue("H_x")),
    _H_y(coupledValue("H_y")),
    _H_z(coupledValue("H_z")),
+   _H_x_grad(coupledGradient("H_x")),
+   _H_y_grad(coupledGradient("H_y")),
+   _H_z_grad(coupledGradient("H_z")),
    _J_x(getParam<Real>("J_x")),
    _J_y(getParam<Real>("J_y")),
    _J_z(getParam<Real>("J_z"))
@@ -29,13 +32,13 @@ ExternalFieldx::ExternalFieldx(const InputParameters & parameters) :
 Real ExternalFieldx::computeQpResidual()
 {
 
-  return _test[_i][_qp](0)*((_grad_H_z[_qp](1)-_grad_H_y[_qp](2)-J_x);
+  return _test[_i][_qp]*((_grad_H_z[_qp](1)-_grad_H_y[_qp](2)-J_x);
 }
 
 Real ExternalFieldx::computeQpJacobian()
 {
 
-  return _test[_i][_qp](0)*((_grad_H_z[_qp](1)-_grad_H_y[_qp](2)-J_x);
+  return _test[_i][_qp]*((_grad_H_z[_qp](1)-_grad_H_y[_qp](2)-J_x);
 }
 
 
