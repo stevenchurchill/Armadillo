@@ -10,8 +10,6 @@ InputParameters validParams<ExternalFieldz>()
   params.addRequiredParam<Real>("Jx", "Current Density_x");
   params.addRequiredParam<Real>("Jy", "Current Density_y");
   params.addRequiredParam<Real>("Jz", "Current Density_z");
-
-
   return params;
 }
 
@@ -34,13 +32,28 @@ ExternalFieldz::ExternalFieldz(const InputParameters & parameters) :
 
 Real ExternalFieldz::computeQpResidual()
 {
-
-  return _test[_i][_qp]*(_Hy_grad[_qp](0)-_Hx_grad[_qp](1) - _Jz);
+  return _test[_i][_qp]*(_Hy_grad[_qp](0) - _Hx_grad[_qp](1) - _Jz);
 }
 
 Real ExternalFieldz::computeQpJacobian()
 {
-
   return 0.0;
 }
 
+Real
+ExternalFieldz::computeQpOffDiagJacobian(unsigned int jvar)
+{
+    Real a = 0.0;
+    if (jvar == _Hx_var)
+    {
+       a += - _test[_i][_qp] * _grad_phi[_j][_qp](1);
+       return a;
+    }
+    else if (jvar == _Hy_var)
+    {
+       a += _test[_i][_qp] * _grad_phi[_j][_qp](0);
+       return a;
+    }
+    else
+       return 0.0;
+}

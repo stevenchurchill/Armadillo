@@ -10,7 +10,6 @@ InputParameters validParams<ExternalFieldy>()
   params.addRequiredParam<Real>("Jx", "Current Density_x");
   params.addRequiredParam<Real>("Jy", "Current Density_y");
   params.addRequiredParam<Real>("Jz", "Current Density_z");
-
   return params;
 }
 
@@ -33,13 +32,28 @@ ExternalFieldy::ExternalFieldy(const InputParameters & parameters) :
 
 Real ExternalFieldy::computeQpResidual()
 {
-
-  return _test[_i][_qp] * (_Hx_grad[_qp](2)-_Hz_grad[_qp](0) - _Jy);
+  return _test[_i][_qp] * (_Hx_grad[_qp](2) - _Hz_grad[_qp](0) - _Jy);
 }
 
 Real ExternalFieldy::computeQpJacobian()
 {
-
   return 0.0;
 }
 
+Real
+ExternalFieldy::computeQpOffDiagJacobian(unsigned int jvar)
+{
+    Real a = 0.0;
+    if (jvar == _Hx_var)
+    {
+       a += _test[_i][_qp] * _grad_phi[_j][_qp](2);
+       return a;
+    }
+    else if (jvar == _Hz_var)
+    {
+       a += - _test[_i][_qp] * _grad_phi[_j][_qp](0);
+       return a;
+    }
+    else
+       return 0.0;
+}

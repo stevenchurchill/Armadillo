@@ -34,15 +34,30 @@ ExternalFieldx::ExternalFieldx(const InputParameters & parameters) :
 
 Real ExternalFieldx::computeQpResidual()
 {
-
   return _test[_i][_qp]*(_Hz_grad[_qp](1)-_Hy_grad[_qp](2) - _Jx);
 }
 
 Real ExternalFieldx::computeQpJacobian()
 {
-
   return 0.0;
 }
 
+Real
+ExternalFieldx::computeQpOffDiagJacobian(unsigned int jvar)
+{
+    Real a = 0.0;
+    if (jvar == _Hy_var)
+    {
+       a += - _test[_i][_qp] * _grad_phi[_j][_qp](2);
+       return a;
+    }
+    else if (jvar == _Hz_var)
+    {
+       a += _test[_i][_qp] * _grad_phi[_j][_qp](1);
+       return a;
+    }
+    else
+       return 0.0;
+}
 
 
