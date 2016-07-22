@@ -72,9 +72,9 @@
     Hx = Hx
     Hy = Hy
     Hz = Hz
-    Jx = 1.0
+    Jx = 0
     Jy = 0
-    Jz = 0	
+    Jz = 1e-4	
   [../]
 
   [./lp5]
@@ -85,8 +85,8 @@
     Hy = Hy
     Hz = Hz
     Jx = 0
-    Jy = 1.0
-    Jz = 0	
+    Jy = 0
+    Jz = 1e-4	
   [../]
 
   [./lp6]
@@ -98,7 +98,7 @@
     Hz = Hz
     Jx = 0
     Jy = 0
-    Jz = 1.0		
+    Jz = 1e-4		
   [../]
 []
 
@@ -128,41 +128,6 @@
     type = DirichletBC
     variable = 'Hx Hy Hz'
     boundary = '4'
-    value = 0
-  [../]
-
-  [./5]
-    type = DirichletBC
-    variable = 'Hx Hy Hz'
-    boundary = '5'
-    value = 0
-  [../]
-
-  [./6]
-    type = DirichletBC
-    variable = 'Hx Hy Hz'
-    boundary = '6'
-    value = 0
-  [../]
-
-  [./7]
-    type = DirichletBC
-    variable = 'Hx Hy Hz'
-    boundary = '7'
-    value = 0
-  [../]
-
-  [./8]
-    type = DirichletBC
-    variable = 'Hx Hy Hz'
-    boundary = '8'
-    value = 0
-  [../]
-
-  [./9]
-    type = DirichletBC
-    variable = 'Hx Hy Hz'
-    boundary = '9'
     value = 0
   [../]
 
