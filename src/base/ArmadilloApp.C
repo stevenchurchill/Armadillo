@@ -11,6 +11,7 @@
 #include "ExternalFieldx.h"
 #include "ExternalFieldy.h"
 #include "ExternalFieldz.h"
+#include "HMag.h"
 
 //Specific Modules
 #include "TensorMechanicsApp.h"
@@ -68,6 +69,7 @@ ArmadilloApp::registerObjects(Factory & factory)
   registerAuxKernel(ByFieldAux);
   registerAuxKernel(BzFieldAux);
   registerAuxKernel(BMag);
+  registerAuxKernel(HMag);
 }
 
 // External entry point for dynamic syntax association

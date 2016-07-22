@@ -2,7 +2,7 @@
   type = FileMesh
   file = exodus_stevens_mesh.e
   block_id = '1 2'
-  block_name = 'medium cylinder'
+  block_name = 'cube cylinder'
   boundary_id = '1 2 3 4 5 6 7 8 9'
   boundary_name = '1 2 3 4 5 6 7 8 9'
  
@@ -38,7 +38,7 @@
     Hz = Hz
     Jx = 0
     Jy = 0
-    Jz = 0	
+    Jz = 1e-4	
   [../]
 
   [./lp2]
@@ -50,7 +50,7 @@
     Hz = Hz
     Jx = 0
     Jy = 0
-    Jz = 0		
+    Jz = 1e-4		
   [../]
 
   [./lp3]
@@ -62,7 +62,7 @@
     Hz = Hz
     Jx = 0
     Jy = 0
-    Jz = 0		
+    Jz = 1e-4		
   [../]
 
   [./lp4]
@@ -74,7 +74,7 @@
     Hz = Hz
     Jx = 0
     Jy = 0
-    Jz = 1e-4	
+    Jz = 0	
   [../]
 
   [./lp5]
@@ -86,7 +86,7 @@
     Hz = Hz
     Jx = 0
     Jy = 0
-    Jz = 1e-4	
+    Jz = 0
   [../]
 
   [./lp6]
@@ -98,7 +98,7 @@
     Hz = Hz
     Jx = 0
     Jy = 0
-    Jz = 1e-4		
+    Jz = 0	
   [../]
 []
 
