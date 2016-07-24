@@ -30,5 +30,5 @@ Real
 HMag::computeValue()
 
 {
-    return std::pow(std::pow(Hx,2.0)+std::pow(Hy,2)+std::pow(Hz,2),0.5);
+    return std::pow(std::pow(_Hx[_qp],2.0)+std::pow(_Hy[_qp],2)+std::pow(_Hz[_qp],2),0.5);
 }
