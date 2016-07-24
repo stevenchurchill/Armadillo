@@ -27,9 +27,7 @@ private:
   const VariableValue & _Hx;
   const VariableValue & _Hy;
   const VariableValue & _Hz;
-  const VariableGradient & _Hx_grad;
-  const VariableGradient & _Hy_grad;
-  const VariableGradient & _Hz_grad;
+
 };
 
 #endif /* HMAG_H */

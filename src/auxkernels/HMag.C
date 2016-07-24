@@ -1,5 +1,6 @@
 #include "HMag.h"
 
+
 template<>
 
 InputParameters validParams<HMag>()
@@ -15,15 +16,13 @@ InputParameters validParams<HMag>()
 
 HMag::HMag(const InputParameters & parameters) :
   AuxKernel(parameters),
+
    _Hx_var(coupled("Hx")),
    _Hy_var(coupled("Hy")),
    _Hz_var(coupled("Hz")),
    _Hx(coupledValue("Hx")),
    _Hy(coupledValue("Hy")),
-   _Hz(coupledValue("Hz")),
-   _Hx_grad(coupledGradient("Hx")),
-   _Hy_grad(coupledGradient("Hy")),
-   _Hz_grad(coupledGradient("Hz"))
+   _Hz(coupledValue("Hz"))
 {
 }
 
@@ -31,5 +30,5 @@ Real
 HMag::computeValue()
 
 {
-    return std::pow(_Hx_grad[_qp](1)*_Hx_grad[_qp](2)+_Hy_grad[_qp](0)*_Hy_grad[_qp](2)+_Hz_grad[_qp](0)*_Hz_grad[_qp](1),0.5);
+    return std::pow(std::pow(Hx,2.0)+std::pow(Hy,2)+std::pow(Hz,2),0.5);
 }
