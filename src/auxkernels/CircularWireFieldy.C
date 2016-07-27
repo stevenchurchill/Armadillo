@@ -49,7 +49,7 @@ CircularWireFieldy::computeValue()
     y +=  _q_point[_qp](1) - _loc_y;
     z +=  _q_point[_qp](2) - _loc_z;
   
-    rho  += std::pow(x, 2.0) + std::pow(y,2.0);
+    rho  += std::pow(std::pow(x, 2.0) + std::pow(y, 2.0), 0.5);
 
     r +=  std::pow(std::pow(x, 2.0)+ std::pow(y, 2.0)+ std::pow(z, 2.0), 0.5);
 

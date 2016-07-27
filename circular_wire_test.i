@@ -1,21 +1,21 @@
 [Mesh]
   type = GeneratedMesh
   dim = 3
-  nx = 100
-  ny = 100
-  nz = 100
-  xmin = -4
-  xmax = 4
-  ymin = -4
-  ymax = 4
-  zmin = -4
-  zmax = 4
+  nx = 60
+  ny = 60
+  nz = 60
+  xmin = -10
+  xmax = 10
+  ymin = -10
+  ymax = 10
+  zmin = -10
+  zmax = 10
   elem_type = HEX8
 []
 
 [GlobalParams]
-    mu = 0.02
-    i = 0.5
+    mu = 1.0e-4
+    i = 3.0
     a = 1.0
     loc_x = 0.0
     loc_y = 0.0

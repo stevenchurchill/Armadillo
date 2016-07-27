@@ -48,12 +48,12 @@ CircularWireFieldz::computeValue()
     y +=  _q_point[_qp](1) - _loc_y;
     z +=  _q_point[_qp](2) - _loc_z;
   
-    rho  += std::pow(x, 2.0) + std::pow(y,2.0);
+    rho  += std::pow(std::pow(x, 2.0) + std::pow(y, 2.0), 0.5);
 
     r +=  std::pow(std::pow(x, 2.0)+ std::pow(y, 2.0)+ std::pow(z, 2.0), 0.5);
 
-    alpsq +=  std::pow(_a,2.0) + std::pow(r,2.0) - 2 * _a * r * rho;
-    betsq +=  std::pow(_a,2.0) + std::pow(r,2.0) + 2 * _a * r * rho;
+    alpsq +=  std::pow(_a, 2.0) + std::pow(r, 2.0) - 2 * _a * r * rho;
+    betsq +=  std::pow(_a, 2.0) + std::pow(r, 2.0) + 2 * _a * r * rho;
     ksq +=  1.0 -  alpsq/betsq;
     
     C +=  _mu * _i / (4.0 * pi);
@@ -62,5 +62,5 @@ CircularWireFieldz::computeValue()
     asymptotK += (1.0/2.0) * (1.0 + ksq / 4.0 + (9.0 * std::pow(ksq, 2.0)) / 64.0 + (25.0 * std::pow(ksq, 3.0))/256.0 + (1225.0 *std::pow(ksq, 4.0))/16384.0) / pi ;
     asymptotE += (1.0/2.0) * (1.0 - ksq / 4.0 - (3.0 * std::pow(ksq, 2.0)) / 64.0 - (5.0 * std::pow(ksq, 3.0))/256.0 - (175.0 *std::pow(ksq, 4.0))/16384.0 ) / pi ;
 
-    return (C / (2.0 * alpsq * betsq ) )* (( std::pow(_a, 2.0) - std::pow(r, 2.0) ) * asymptotE + alpsq * asymptotK );
+    return (C / (2.0 * alpsq * std::pow(betsq, 0.5) ) )* (( std::pow(_a, 2.0) - std::pow(r, 2.0) ) * asymptotE + alpsq * asymptotK );
 }
