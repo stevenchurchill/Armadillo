@@ -14,9 +14,9 @@
 []
 
 [GlobalParams]
-    mu = 1.0e-4
-    i = 3.0
-    a = 1.0
+    mu = 1.0
+    i = 5.0
+    a = 2.0
     loc_x = 0.0
     loc_y = 0.0
     loc_z = 0.0
