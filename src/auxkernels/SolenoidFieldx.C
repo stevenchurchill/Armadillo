@@ -39,6 +39,7 @@ Real
 SolenoidFieldx::computeValue()
 
 {
+    Real sum = 0.0;
     Real x = 0.0;
     Real y = 0.0;
     Real z = 0.0;
@@ -71,4 +72,6 @@ SolenoidFieldx::computeValue()
     asymptotE += (pi / 2.0 ) * ( 1.0 - (1.0 /4.0) * std::pow(ksq, 4.0) - (9.0 / 64.0) * std::pow(ksq, 8.0) );
 
     return (C * x * z / (2.0 * alpsq * betsq * std::pow(rho, 2.0)) ) * (( std::pow(_a, 2.0) + std::pow(r, 2.0) ) * asymptotE - alpsq * asymptotK  );
+
+    return sum;
 }

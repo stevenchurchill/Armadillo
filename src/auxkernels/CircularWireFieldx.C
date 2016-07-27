@@ -62,5 +62,5 @@ CircularWireFieldx::computeValue()
     asymptotK += (1.0/2.0) * (1.0 + ksq / 4.0 + (9.0 * std::pow(ksq, 2.0)) / 64.0 + (25.0 * std::pow(ksq, 3.0))/256.0 + (1225.0 *std::pow(ksq, 4.0))/16384.0) / pi ;
     asymptotE += (1.0/2.0) * (1.0 - ksq / 4.0 - (3.0 * std::pow(ksq, 2.0)) / 64.0 - (5.0 * std::pow(ksq, 3.0))/256.0 - (175.0 *std::pow(ksq, 4.0))/16384.0 ) / pi ;
 
-    return (C * x * z / (2.0 * alpsq * betsq * std::pow(rho, 2.0)) ) * (( std::pow(_a, 2.0) + std::pow(r, 2.0) ) * asymptotE - alpsq * asymptotK  );
+    return (C * x * z / (2.0 * alpsq * std::pow(betsq, 0.5) * std::pow(rho, 2.0)) ) * (( std::pow(_a, 2.0) + std::pow(r, 2.0) ) * asymptotE - alpsq * asymptotK  );
 }
