@@ -11,6 +11,7 @@
 #include "ExternalFieldx.h"
 #include "ExternalFieldy.h"
 #include "ExternalFieldz.h"
+#include "HMag.h"
 
 #include "FarFieldBC.h"
 
@@ -100,6 +101,7 @@ ArmadilloApp::registerObjects(Factory & factory)
   registerAuxKernel(BzCurlA);
 
   registerAuxKernel(BMag);
+  registerAuxKernel(HMag);
 }
 
 // External entry point for dynamic syntax association
