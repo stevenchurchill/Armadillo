@@ -19,6 +19,14 @@
 #include "PoissonAy.h"
 #include "PoissonAz.h"
 
+#include "CircularWireFieldx.h"
+#include "CircularWireFieldy.h"
+#include "CircularWireFieldz.h"
+
+#include "SolenoidFieldx.h"
+#include "SolenoidFieldy.h"
+#include "SolenoidFieldz.h"
+
 #include "DivASplit.h"
 
 #include "DivHx.h"
@@ -76,22 +84,27 @@ extern "C" void ArmadilloApp__registerObjects(Factory & factory) { ArmadilloApp:
 void
 ArmadilloApp::registerObjects(Factory & factory)
 {
-  registerBoundaryCondition(FarFieldBC);
+  //Boundary Conditions
+  registerBoundaryCondition(FarFieldBC); //deprecated
+
+  //Kernels
   registerKernel(Laplace); 
   registerKernel(LaplaceMat);
-  registerKernel(ExternalFieldx);
+  registerKernel(ExternalFieldx);  //likely deprecated
   registerKernel(ExternalFieldy);
   registerKernel(ExternalFieldz);
 
-  registerKernel(PoissonAx);
+  registerKernel(PoissonAx);  //approach is degenerate for choice of field split Q
   registerKernel(PoissonAy);
   registerKernel(PoissonAz);
 
-  registerKernel(DivASplit);
+  registerKernel(DivASplit); // see above. deprecated
 
   registerKernel(DivHx);
   registerKernel(DivHy);
   registerKernel(DivHz);
+
+  //Aux Kernels
   registerAuxKernel(BxFieldAux);
   registerAuxKernel(ByFieldAux);
   registerAuxKernel(BzFieldAux);
@@ -100,7 +113,16 @@ ArmadilloApp::registerObjects(Factory & factory)
   registerAuxKernel(ByCurlA);
   registerAuxKernel(BzCurlA);
 
+  registerAuxKernel(CircularWireFieldx);
+  registerAuxKernel(CircularWireFieldy);
+  registerAuxKernel(CircularWireFieldz);
+
+  registerAuxKernel(SolenoidFieldx);
+  registerAuxKernel(SolenoidFieldy);
+  registerAuxKernel(SolenoidFieldz);
+
   registerAuxKernel(BMag);
+
   registerAuxKernel(HMag);
 }
 

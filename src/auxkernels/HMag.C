@@ -16,7 +16,6 @@ InputParameters validParams<HMag>()
 
 HMag::HMag(const InputParameters & parameters) :
   AuxKernel(parameters),
-
    _Hx_var(coupled("Hx")),
    _Hy_var(coupled("Hy")),
    _Hz_var(coupled("Hz")),
