@@ -12,6 +12,22 @@
 #include "ExternalFieldy.h"
 #include "ExternalFieldz.h"
 
+#include "FarFieldBC.h"
+
+#include "PoissonAx.h"
+#include "PoissonAy.h"
+#include "PoissonAz.h"
+
+#include "DivASplit.h"
+
+#include "DivHx.h"
+#include "DivHy.h"
+#include "DivHz.h"
+
+#include "BxCurlA.h"
+#include "ByCurlA.h"
+#include "BzCurlA.h"
+
 //Specific Modules
 #include "TensorMechanicsApp.h"
 
@@ -59,14 +75,30 @@ extern "C" void ArmadilloApp__registerObjects(Factory & factory) { ArmadilloApp:
 void
 ArmadilloApp::registerObjects(Factory & factory)
 {
+  registerBoundaryCondition(FarFieldBC);
   registerKernel(Laplace); 
   registerKernel(LaplaceMat);
   registerKernel(ExternalFieldx);
   registerKernel(ExternalFieldy);
   registerKernel(ExternalFieldz);
+
+  registerKernel(PoissonAx);
+  registerKernel(PoissonAy);
+  registerKernel(PoissonAz);
+
+  registerKernel(DivASplit);
+
+  registerKernel(DivHx);
+  registerKernel(DivHy);
+  registerKernel(DivHz);
   registerAuxKernel(BxFieldAux);
   registerAuxKernel(ByFieldAux);
   registerAuxKernel(BzFieldAux);
+
+  registerAuxKernel(BxCurlA);
+  registerAuxKernel(ByCurlA);
+  registerAuxKernel(BzCurlA);
+
   registerAuxKernel(BMag);
 }
 
