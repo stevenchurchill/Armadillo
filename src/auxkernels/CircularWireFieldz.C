@@ -43,6 +43,7 @@ CircularWireFieldz::computeValue()
     Real pi = 3.14159265359;
     Real asymptotK = 0.0;
     Real asymptotE = 0.0;
+    Real sum = 0.0;
 
     x +=  _q_point[_qp](0) - _loc_x;
     y +=  _q_point[_qp](1) - _loc_y;
@@ -52,11 +53,11 @@ CircularWireFieldz::computeValue()
 
     r +=  std::pow(std::pow(x, 2.0)+ std::pow(y, 2.0)+ std::pow(z, 2.0), 0.5);
 
-    alpsq +=  std::pow(_a, 2.0) + std::pow(r, 2.0) - 2 * _a * r * rho;
-    betsq +=  std::pow(_a, 2.0) + std::pow(r, 2.0) + 2 * _a * r * rho;
+    alpsq +=  std::pow(_a, 2.0) + std::pow(r, 2.0) - 2 * _a * rho;
+    betsq +=  std::pow(_a, 2.0) + std::pow(r, 2.0) + 2 * _a * rho;
     ksq +=  1.0 -  alpsq/betsq;
     
-    C +=  _mu * _i / (4.0 * pi);
+    C +=  _mu * _i / (pi);
 
     /// Note that we don't have C++17 support (comm. w/ D. Schwen), so the comp_ellint_1 and 2 functions don't have headers. We can use asymptotic expansions instead.
 
@@ -64,5 +65,6 @@ CircularWireFieldz::computeValue()
     asymptotK += pi/2.0 + (pi * ksq)/8.0 + (9 *pi *std::pow(ksq,2.0))/128.0 + ( 25.0*pi* std::pow(ksq,3.0))/512.0 + (1225.0 *pi* std::pow(ksq,4.0))/32768.0 + ( 3969.0 *pi *std::pow(ksq,5.0))/131072.0 + (53361.0* pi *std::pow(ksq,6.0))/2097152.0 + ( 184041.0 *pi* std::pow(ksq,7.0))/8388608.0 + (41409225.0* pi *std::pow(ksq,8.0))/2147483648.0;
     asymptotE += pi/2.0 - (pi *ksq)/8.0 - (3.0* pi* std::pow(ksq,2.0))/128.0 - (5 * pi * std::pow(ksq,3.0))/512.0 - ( 175.0 *pi* std::pow(ksq,4.0))/32768.0 - (441.0* pi* std::pow(ksq,5.0))/131072.0 - ( 4851.0 *pi *std::pow(ksq,6.0))/2097152.0 - (14157.0* pi * std::pow(ksq,7.0))/8388608 - ( 2760615 * pi * std::pow(ksq,8.0))/2147483648.0;
 
-    return (C / (2.0 * alpsq * std::pow(betsq, 0.5) ) )* (( std::pow(_a, 2.0) - std::pow(r, 2.0) ) * asymptotE + alpsq * asymptotK );
+    sum += (C / (2.0 * alpsq * std::pow(betsq, 0.5) ) )* (( std::pow(_a, 2.0) - std::pow(r, 2.0) ) * asymptotE + alpsq * asymptotK );
+    return sum;
 }
