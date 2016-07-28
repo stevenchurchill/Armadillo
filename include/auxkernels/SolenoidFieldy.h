@@ -20,7 +20,7 @@ protected:
   virtual Real computeValue();
 
 private:
-  const Real _N, _a, _i, _loc_x, _loc_y, _loc_z, _mu, _translation_param, _solenoidal_height;
+  const Real _N, _a, _i, _loc_x, _loc_y, _loc_z, _mu, _translation_direction, _solenoid_height;
 
 };
 

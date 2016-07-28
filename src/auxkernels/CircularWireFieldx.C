@@ -65,24 +65,4 @@ CircularWireFieldx::computeValue()
 
     sum += (C * x * z / (2.0 * alpsq * std::pow(betsq, 0.5) * std::pow(rho, 2.0)) ) * (( std::pow(_a, 2.0) + std::pow(r, 2.0) ) * asymptotK - alpsq * asymptotE  );
     return sum;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 }
