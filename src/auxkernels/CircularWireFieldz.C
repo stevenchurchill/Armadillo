@@ -31,6 +31,7 @@ Real
 CircularWireFieldz::computeValue()
 
 {
+/// Cartesian components -- likely a typo or something in the Nasa paper... results are not correct.
     Real x = 0.0;
     Real y = 0.0;
     Real z = 0.0;
@@ -48,7 +49,7 @@ CircularWireFieldz::computeValue()
     x +=  _q_point[_qp](0) - _loc_x;
     y +=  _q_point[_qp](1) - _loc_y;
     z +=  _q_point[_qp](2) - _loc_z;
-  
+
     rho  += std::pow(std::pow(x, 2.0) + std::pow(y, 2.0), 0.5);
 
     r +=  std::pow(std::pow(x, 2.0)+ std::pow(y, 2.0)+ std::pow(z, 2.0), 0.5);
@@ -56,7 +57,7 @@ CircularWireFieldz::computeValue()
     alpsq +=  std::pow(_a, 2.0) + std::pow(r, 2.0) - 2 * _a * rho;
     betsq +=  std::pow(_a, 2.0) + std::pow(r, 2.0) + 2 * _a * rho;
     ksq +=  1.0 -  alpsq/betsq;
-    
+
     C +=  _mu * _i / (pi);
 
     /// Note that we don't have C++17 support (comm. w/ D. Schwen), so the comp_ellint_1 and 2 functions don't have headers. We can use asymptotic expansions instead.

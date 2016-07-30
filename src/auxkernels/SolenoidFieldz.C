@@ -5,7 +5,6 @@ template<>
 InputParameters validParams<SolenoidFieldz>()
 
 {
-
   InputParameters params = validParams<AuxKernel>();
   params.addRequiredParam<Real>("N", "number of turns");
   params.addRequiredParam<Real>("a", "coil radius");
@@ -18,7 +17,6 @@ InputParameters validParams<SolenoidFieldz>()
   params.addRequiredParam<Real>("solenoid_height", "solenoid height");
   return params;
 }
-
 
 SolenoidFieldz::SolenoidFieldz(const InputParameters & parameters) :
   AuxKernel(parameters),
@@ -50,6 +48,7 @@ SolenoidFieldz::computeValue()
   Real pi = 3.14159265359;
   Real asymptotK = 0.0;
   Real asymptotE = 0.0;
+
   Real z1 = 0.0;
 
   Real translation_param = _solenoid_height / _N;
@@ -66,9 +65,8 @@ SolenoidFieldz::computeValue()
   betsq +=  std::pow(_a, 2.0) + std::pow(r, 2.0) + 2 * _a * rho;
   ksq +=  1.0 -  alpsq/betsq;
 
-  asymptotK += pi / 2.0 + (pi * ksq) / 8.0 + (9 * pi * std::pow(ksq, 2.0)) / 128.0 + ( 25.0 * pi * std::pow(ksq, 3.0))/512.0 + (1225.0 * pi * std::pow(ksq, 4.0)) / 32768.0 + (3969.0 * pi * std::pow(ksq, 5.0)) / 131072.0 + (53361.0 * pi *std::pow(ksq,6.0)) / 2097152.0 + ( 184041.0 *pi* std::pow(ksq, 7.0)) / 8388608.0 + (41409225.0 * pi *std::pow(ksq,8.0))/2147483648.0;
-  asymptotE += pi / 2.0 - (pi * ksq) / 8.0 - (3.0 * pi * std::pow(ksq, 2.0)) / 128.0 - (5 * pi * std::pow(ksq, 3.0))/512.0 - ( 175.0 * pi * std::pow(ksq, 4.0)) / 32768.0 - (441.0 * pi * std::pow(ksq, 5.0)) / 131072.0 - (4851.0 * pi * std::pow(ksq,6.0))/2097152.0 - (14157.0* pi * std::pow(ksq,7.0)) / 8388608 - ( 2760615 * pi * std::pow(ksq,8.0)) / 2147483648.0;
-
+  asymptotK += pi/2.0 + (pi * ksq)/8.0 + (9 *pi *std::pow(ksq,2.0))/128.0 + ( 25.0*pi* std::pow(ksq,3.0))/512.0 + (1225.0 *pi* std::pow(ksq,4.0))/32768.0 + ( 3969.0 *pi *std::pow(ksq,5.0))/131072.0 + (53361.0* pi *std::pow(ksq,6.0))/2097152.0 + ( 184041.0 *pi* std::pow(ksq,7.0))/8388608.0 + (41409225.0* pi *std::pow(ksq,8.0))/2147483648.0;
+  asymptotE += pi/2.0 - (pi *ksq)/8.0 - (3.0* pi* std::pow(ksq,2.0))/128.0 - (5 * pi * std::pow(ksq,3.0))/512.0 - ( 175.0 *pi* std::pow(ksq,4.0))/32768.0 - (441.0* pi* std::pow(ksq,5.0))/131072.0 - ( 4851.0 *pi *std::pow(ksq,6.0))/2097152.0 - (14157.0* pi * std::pow(ksq,7.0))/8388608 - ( 2760615 * pi * std::pow(ksq,8.0))/2147483648.0;
 
   sum += (C / (2.0 * alpsq * std::pow(betsq, 0.5) ) )* (( std::pow(_a, 2.0) - std::pow(r, 2.0) ) * asymptotE + alpsq * asymptotK );
 
@@ -83,22 +81,21 @@ SolenoidFieldz::computeValue()
      Real betsq = 0.0;
      Real ksq = 0.0;
 
-   
+
      Real asymptotK = 0.0;
      Real asymptotE = 0.0;
-
 
      z =  z1 + j * translation_param;
 
      r +=  std::pow(std::pow(x, 2.0)+ std::pow(y, 2.0)+ std::pow(z, 2.0), 0.5);
-  
+
      alpsq +=  std::pow(_a, 2.0) + std::pow(r, 2.0) - 2 * _a * rho;
      betsq +=  std::pow(_a, 2.0) + std::pow(r, 2.0) + 2 * _a * rho;
      ksq +=  1.0 -  alpsq/betsq;
-  
+
      asymptotK += pi / 2.0 + (pi * ksq) / 8.0 + (9 * pi * std::pow(ksq, 2.0)) / 128.0 + ( 25.0 * pi * std::pow(ksq, 3.0))/512.0 + (1225.0 * pi * std::pow(ksq, 4.0)) / 32768.0 + (3969.0 * pi * std::pow(ksq, 5.0)) / 131072.0 + (53361.0 * pi *std::pow(ksq,6.0)) / 2097152.0 + ( 184041.0 *pi* std::pow(ksq, 7.0)) / 8388608.0 + (41409225.0 * pi *std::pow(ksq,8.0))/2147483648.0;
      asymptotE += pi / 2.0 - (pi * ksq) / 8.0 - (3.0 * pi * std::pow(ksq, 2.0)) / 128.0 - (5 * pi * std::pow(ksq, 3.0))/512.0 - ( 175.0 * pi * std::pow(ksq, 4.0)) / 32768.0 - (441.0 * pi * std::pow(ksq, 5.0)) / 131072.0 - (4851.0 * pi * std::pow(ksq,6.0))/2097152.0 - (14157.0* pi * std::pow(ksq,7.0)) / 8388608 - ( 2760615 * pi * std::pow(ksq,8.0)) / 2147483648.0;
-   
+
      sum1 += (C / (2.0 * alpsq * std::pow(betsq, 0.5) ) )* (( std::pow(_a, 2.0) - std::pow(r, 2.0) ) * asymptotE + alpsq * asymptotK );
    }
 

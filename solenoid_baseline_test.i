@@ -1,18 +1,22 @@
 [Mesh]
   type = FileMesh
   file = exodus_stanadyne_arm0_baseline.e
+  #block 1: solenoid
+  #block 2: armature
+  #block 3: medium around these structures
 []
 
 [GlobalParams]
-    mu = 1.0
-    i = 1.0
-    a = 4.45 #according to some introspective CUBITing
+    #Mesh is in millimeters.
+    mu = 0.00125664. #Henries/meter converted to T*mm/A. [T] = Teslas
+    i = 0.036     #Amperes [A]-- SD uses 0.036 [A]
+    a = 4.25      #millimeters [mm] according to some introspective CUBITing
     loc_x = 0.0
     loc_y = 0.0
-    loc_z = -1.1628 #according to some introspective CUBITing
-    N =  29.0 #They have 29.5 --- WHAT DO
-    solenoid_height = -5.36 #according to some introspective CUBITing
-    translation_direction = 1.0 #make to a vector..
+    loc_z = -1.1628 #millimeters according to some introspective CUBITing
+    N =  29.0 #They have 29.5 --- WHAT DO?
+    solenoid_height = -5.36 #millimeters according to some introspective CUBITing
+    translation_direction = 1.0 #Should make to a vector..see issue about refactoring
 []
 
 
@@ -24,7 +28,7 @@
 []
 
 [AuxVariables]
-  [./B_x]
+  [./B_x]          
     order = CONSTANT
     family = MONOMIAL
   [../]
@@ -40,10 +44,14 @@
     order = CONSTANT
     family = MONOMIAL
   [../]
+  [./mu_mag]
+    order = CONSTANT
+    family = MONOMIAL
+  [../]
 []
 
 [AuxKernels]
-  [./aux_bx]
+  [./aux_bx] #field should be given in [T]
     type = SolenoidFieldx
     variable = B_x
     execute_on = 'timestep_end'
@@ -64,6 +72,26 @@
     Hx = B_x
     Hy = B_y
     Hz = B_z
+    execute_on = 'timestep_end'
+  [../]
+  [./aux_Mumag]
+    block = '2'
+    type = MuMag
+    variable = mu_mag
+    Hx = B_x
+    Hy = B_y
+    Hz = B_z
+    A = 0.0250778 #From the fit -- these are in [T*A/mm]
+    B = 0.0847837
+    mu00 = 0
+    mu01 = 0
+    mu02 = 0
+    mu10 = 0
+    mu11 = 0
+    mu12 = 0
+    mu20 = 0
+    mu21 = 0
+    mu22 = 0
     execute_on = 'timestep_end'
   [../]
 []

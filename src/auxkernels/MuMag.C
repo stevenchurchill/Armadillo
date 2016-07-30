@@ -1,0 +1,55 @@
+#include "MuMag.h"
+
+template<>
+
+InputParameters validParams<MuMag>()
+
+{
+  InputParameters params = validParams<AuxKernel>();
+  params.addRequiredCoupledVar("Hx", "x component applied field");
+  params.addRequiredCoupledVar("Hy", "y component applied field");
+  params.addRequiredCoupledVar("Hz", "z component applied field");
+  params.addRequiredParam<Real>("A", "fit param 1");
+  params.addRequiredParam<Real>("B", "fit param 2");
+  params.addParam<Real>("mu00", 0.0, "magnetic susceptibility00");
+  params.addParam<Real>("mu01", 0.0, "magnetic susceptibility01");
+  params.addParam<Real>("mu02", 0.0, "magnetic susceptibility02");
+  params.addParam<Real>("mu10", 0.0, "magnetic susceptibility10");
+  params.addParam<Real>("mu11", 0.0, "magnetic susceptibility11");
+  params.addParam<Real>("mu12", 0.0, "magnetic susceptibility12");
+  params.addParam<Real>("mu20", 0.0, "magnetic susceptibility20");
+  params.addParam<Real>("mu21", 0.0, "magnetic susceptibility21");
+  params.addParam<Real>("mu22", 0.0, "magnetic susceptibility22");
+  return params;
+}
+
+
+MuMag::MuMag(const InputParameters & parameters) :
+  AuxKernel(parameters),
+   _Hx(coupledValue("Hx")),
+   _Hy(coupledValue("Hy")),
+   _Hz(coupledValue("Hz")),
+   _A(getParam<Real>("A")),
+   _B(getParam<Real>("B")),
+   _mu00(getParam<Real>("mu00")),
+   _mu01(getParam<Real>("mu01")),
+   _mu02(getParam<Real>("mu02")),
+   _mu10(getParam<Real>("mu10")),
+   _mu11(getParam<Real>("mu11")),
+   _mu12(getParam<Real>("mu12")),
+   _mu20(getParam<Real>("mu20")),
+   _mu21(getParam<Real>("mu21")),
+   _mu22(getParam<Real>("mu22"))
+{
+}
+
+Real
+MuMag::computeValue()
+
+{
+//(_Hx[_qp] * _Hx[_qp] * _mu00 + _Hx[_qp] * _Hy[_qp] * _mu01 + _Hx[_qp] * _Hz[_qp] * _mu02 + _Hx[_qp] * _Hy[_qp] * _mu10 + _Hy[_qp] * _Hy[_qp] * _mu11 + _Hz[_qp] * _Hy[_qp] * _mu12 + _Hx[_qp] * _Hz[_qp] * _mu20 + _Hz[_qp] * _Hy[_qp] * _mu21 + _Hz[_qp] * _Hz[_qp] *_mu22);
+
+    Real m = 0.0;
+    m += _A * std::log(std::pow(std::pow(_Hx[_qp], 2.0) + std::pow(_Hy[_qp], 2.0) + std::pow(_Hz[_qp], 2.0) , 0.5)) + _B;
+    return m;
+}

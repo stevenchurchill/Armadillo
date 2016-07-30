@@ -13,6 +13,8 @@
 #include "ExternalFieldz.h"
 #include "HMag.h"
 
+#include "MuMag.h"
+
 #include "FarFieldBC.h"
 
 #include "PoissonAx.h"
@@ -122,7 +124,7 @@ ArmadilloApp::registerObjects(Factory & factory)
   registerAuxKernel(SolenoidFieldz);
 
   registerAuxKernel(BMag);
-
+  registerAuxKernel(MuMag);
   registerAuxKernel(HMag);
 }
 
