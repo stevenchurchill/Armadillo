@@ -39,6 +39,14 @@
 #include "ByCurlA.h"
 #include "BzCurlA.h"
 
+#include "Fx.h"
+#include "Fy.h"
+#include "Fz.h"
+
+
+#include "fMag.h"
+
+
 //Specific Modules
 #include "TensorMechanicsApp.h"
 
@@ -125,6 +133,13 @@ ArmadilloApp::registerObjects(Factory & factory)
 
   registerAuxKernel(BMag);
   registerAuxKernel(MuMag);
+
+  registerAuxKernel(Fz);
+  registerAuxKernel(Fy);
+  registerAuxKernel(Fx);
+
+  registerAuxKernel(fMag);
+
   registerAuxKernel(HMag);
 }
 

@@ -1,5 +1,10 @@
 #include "MuMag.h"
 
+
+//This document calculates the residual magnetic field at a point based on the magnitude of the applied field
+//The fit is done in Mathematica for the CoFe  (vacoflux17 material).
+//This file should be generalized for any of the materials they have.
+
 template<>
 
 InputParameters validParams<MuMag>()
@@ -11,6 +16,9 @@ InputParameters validParams<MuMag>()
   params.addRequiredCoupledVar("Hz", "z component applied field");
   params.addRequiredParam<Real>("A", "fit param 1");
   params.addRequiredParam<Real>("B", "fit param 2");
+  params.addRequiredParam<Real>("C", "fit param 3");
+  params.addRequiredParam<Real>("D", "fit param 4");
+  params.addRequiredParam<Real>("E", "fit param 5");
   params.addParam<Real>("mu00", 0.0, "magnetic susceptibility00");
   params.addParam<Real>("mu01", 0.0, "magnetic susceptibility01");
   params.addParam<Real>("mu02", 0.0, "magnetic susceptibility02");
@@ -31,6 +39,9 @@ MuMag::MuMag(const InputParameters & parameters) :
    _Hz(coupledValue("Hz")),
    _A(getParam<Real>("A")),
    _B(getParam<Real>("B")),
+   _C(getParam<Real>("C")),
+   _D(getParam<Real>("D")),
+   _E(getParam<Real>("E")),
    _mu00(getParam<Real>("mu00")),
    _mu01(getParam<Real>("mu01")),
    _mu02(getParam<Real>("mu02")),
@@ -41,6 +52,7 @@ MuMag::MuMag(const InputParameters & parameters) :
    _mu21(getParam<Real>("mu21")),
    _mu22(getParam<Real>("mu22"))
 {
+  std::cout<<"Note we are using MOOSE's API and the 'solve' is pointless!";
 }
 
 Real
@@ -50,6 +62,7 @@ MuMag::computeValue()
 //(_Hx[_qp] * _Hx[_qp] * _mu00 + _Hx[_qp] * _Hy[_qp] * _mu01 + _Hx[_qp] * _Hz[_qp] * _mu02 + _Hx[_qp] * _Hy[_qp] * _mu10 + _Hy[_qp] * _Hy[_qp] * _mu11 + _Hz[_qp] * _Hy[_qp] * _mu12 + _Hx[_qp] * _Hz[_qp] * _mu20 + _Hz[_qp] * _Hy[_qp] * _mu21 + _Hz[_qp] * _Hz[_qp] *_mu22);
 
     Real m = 0.0;
-    m += _A * std::log(std::pow(std::pow(_Hx[_qp], 2.0) + std::pow(_Hy[_qp], 2.0) + std::pow(_Hz[_qp], 2.0) , 0.5)) + _B;
-    return m;
+    Real x = std::pow(std::pow(_Hz[_qp], 2.0), 0.5);
+    m += _A * std::tanh(_B * ( x + _C ) + _D) + _E;
+    return _Hz[_qp] * m;
 }
