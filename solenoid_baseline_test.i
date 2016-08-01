@@ -8,14 +8,14 @@
 
 [GlobalParams]
     #-------------------#Mesh is in millimeters#---------------------------------#
-    mu = 0.12            #Henries/meter converted to T*mm/A. [T] = Teslas 
+    mu = 0.00125            #Henries/meter converted to T*mm/A. [T] = Teslas 
 #!!!! mu is a fudge factor possibly to MATCH SD results since some factors of mu are floating around probably..
     i = 6.0                     #Amperes [A]-- SD uses 6.0 -- 10.0 [A]
     a = 4.25                    #millimeters [mm] according to some introspective CUBITing
     loc_x = 0.0                 #
     loc_y = 0.0                 #
     loc_z = -1.1628             #millimeters according to some introspective CUBITing
-    N =  29.5                   #They have 29.5 --- does it make sense to have a half turn?
+    N =  29.0                   #They have 29.5 --- does it make sense to have a half turn?
     solenoid_height = -5.36     #millimeters according to some introspective CUBITing
     translation_direction = 1.0 #Should make to a vector..see issue about refactoring
 []
@@ -49,27 +49,28 @@
     family = MONOMIAL
     order = FIRST
   [../]
-  [./f_Mag]
+  [./Fz]
     family = MONOMIAL
     order = CONSTANT
   [../]
 []
 
 [AuxKernels]
+  #AuxKernels have an automatic dependency resolution so if B needs A, then A is computed first.
   [./aux_bx]             #applied fields should be given in [T]
     type = SolenoidFieldx
     variable = H_x
-    execute_on = 'initial'
+    execute_on = 'timestep_end'
   [../]
   [./aux_by]
     type = SolenoidFieldy
     variable = H_y
-    execute_on = 'initial'
+    execute_on = 'timestep_end'
   [../]
   [./aux_bz]
     type = SolenoidFieldz
     variable = H_z
-    execute_on = 'initial'
+    execute_on = 'timestep_end'
   [../]
   [./aux_Hmag]
     type = HMag
@@ -87,10 +88,10 @@
     Hy = H_y
     Hz = H_z
     A = 1.42772 #From the fit of Fig 2 -- these are in [T, A, mm] 
-    B = 7.68652
-    C = -0.132035
-    D = 0.374388
-    E = 0.074
+    B = 0.0768652
+    C = -0.36181
+    D = 0.61269
+    E = 0.07458
     mu00 = 0   #this stuff can be removed in the auxkernel
     mu01 = 0
     mu02 = 0
@@ -100,12 +101,12 @@
     mu20 = 0
     mu21 = 0
     mu22 = 0
-    execute_on = 'timestep_begin'
+    execute_on = 'timestep_end'
   [../]
 
-  [./aux_fMAg]
-    type = fMag
-    variable = f_Mag
+  [./aux_fz]
+    type = Fz
+    variable = Fz
     mumag = mu_mag
     execute_on = 'timestep_end'
   [../]
@@ -114,10 +115,6 @@
 [Kernels]
   [./u_1_kern] #Note the Kernels and BC are arbitrary. We are just using MOOSE's API to compute the fields.
     type = Diffusion
-    variable = u
-  [../]
-  [./u_t_1_kern] 
-    type = TimeDerivative
     variable = u
   [../]
 []
@@ -142,7 +139,7 @@
    [./total_F] #gives result in kg mm/s^2 == milliNewtons
     block = '2'
     type = ElementAverageValue
-    variable = f_Mag
+    variable = Fz
    [../]
 []
 
@@ -158,13 +155,14 @@
 [Executioner]
   type = Transient
   solve_type = 'NEWTON'
-  num_steps =  1
+  num_steps = 2
 []
 
 [Outputs]
   print_perf_log = true
   [./out]
     type = Exodus
+    file_base = solenoid_baseline_test_0
     elemental_as_nodal = true
     execute_on = 'timestep_end'
   [../]
