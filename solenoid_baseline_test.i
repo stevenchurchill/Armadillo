@@ -11,7 +11,7 @@
     mu = 0.000049474            #Henries/meter converted to T*mm/A. converted to T*in/A.
     i = 8.0                     #Amperes [A]-- SD uses 6.0 -- 10.0 [A]
     a = 4.25                    #inches [in] according to some introspective CUBITing
-    loc_x = 0.0                 #
+    loc_x = 0.0                 # F = 3.57 for i = 8.0 with block restrict mumag
     loc_y = 0.0                 #
     loc_z = -1.1628             #inches according to some introspective CUBITing
     N =  29.0                   #They have 29.5 --- does it make sense to have a half turn?
@@ -80,7 +80,7 @@
     execute_on = 'timestep_begin'
   [../]
   [./aux_Mumag]
-    block = '2'
+    block = '2 3'
     type = MuMag
     variable = mu_mag
     Hx = H_x
