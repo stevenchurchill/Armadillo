@@ -1,9 +1,11 @@
 [Mesh]
   type = FileMesh
-  file = exodus_stanadyne_arm0_baseline.e
+  file = exodus_stanadyne_arm0_baseline_new.e
   #block 1: solenoid
   #block 2: armature
-  #block 3: medium around these structures
+  #block 3: steel valve
+  #block 4: encasing pipe
+  #block 5: media
 []
 
 [GlobalParams]
@@ -48,6 +50,10 @@
     family = MONOMIAL
     order = FIRST
   [../]
+  [./mu_mag_stainless_steel]
+    family = MONOMIAL
+    order = FIRST
+  [../]
   [./F_z]
     family = MONOMIAL
     order = FIRST
@@ -88,7 +94,7 @@
     execute_on = 'timestep_begin'
   [../]
   [./aux_Mumag]
-    block = '2 3'
+    block = '2 5'
     type = MuMag
     variable = mu_mag
     Hx = H_x
@@ -111,9 +117,9 @@
     execute_on = 'timestep_begin'
   [../]
   [./aux_Mumag_Stainless_Steel]
-    block = '2 3'
-    type = MuMag
-    variable = mu_mag
+    block = '3'
+    type = MuMag_Stainless_Steel
+    variable = mu_mag_stainless_steel
     Hx = H_x
     Hy = H_y
     Hz = H_z
