@@ -1,6 +1,6 @@
 [Mesh]
   type = FileMesh
-  file = exodus_stanadyne_arm0_baseline.e
+  file = exodus_stanadyne_arm0_baseline_036mm.e
   #block 1: solenoid
   #block 2: armature
   #block 3: medium around these structures
@@ -49,14 +49,6 @@
     order = FIRST
   [../]
   [./F_z]
-    family = MONOMIAL
-    order = FIRST
-  [../]
-  [./F_x]
-    family = MONOMIAL
-    order = FIRST
-  [../]
-  [./F_y]
     family = MONOMIAL
     order = FIRST
   [../]
@@ -109,18 +101,6 @@
     mu21 = 0
     mu22 = 0
     execute_on = 'timestep_begin'
-  [../]
-  [./aux_fx]
-    type = Fx
-    variable = F_x
-    mumag = mu_mag
-    execute_on = 'timestep_end'
-  [../]
-  [./aux_fy]
-    type = Fy
-    variable = F_y
-    mumag = mu_mag
-    execute_on = 'timestep_end'
   [../]
   [./aux_fz]
     type = Fz

@@ -1,6 +1,6 @@
 [Mesh]
   type = FileMesh
-  file = exodus_stanadyne_arm0_baseline.e
+  file = exodus_stanadyne_arm0_baseline_041mm.e
   #block 1: solenoid
   #block 2: armature
   #block 3: medium around these structures
@@ -9,7 +9,7 @@
 [GlobalParams]
     #-------------------#Mesh is in millimeters#---------------------------------#
     mu = 0.000049474            #Henries/meter converted to T*mm/A. converted to T*in/A.
-    i = 8.0                     #Amperes [A]-- SD uses 6.0 -- 10.0 [A]
+    i = 6.0                     #Amperes [A]-- SD uses 6.0 -- 10.0 [A]
     a = 4.25                    #inches [in] according to some introspective CUBITing
     loc_x = 0.0                 # F = 3.57 for i = 8.0 with block restrict mumag
     loc_y = 0.0                 #
@@ -49,14 +49,6 @@
     order = FIRST
   [../]
   [./F_z]
-    family = MONOMIAL
-    order = FIRST
-  [../]
-  [./F_x]
-    family = MONOMIAL
-    order = FIRST
-  [../]
-  [./F_y]
     family = MONOMIAL
     order = FIRST
   [../]
@@ -109,18 +101,6 @@
     mu21 = 0
     mu22 = 0
     execute_on = 'timestep_begin'
-  [../]
-  [./aux_fx]
-    type = Fx
-    variable = F_x
-    mumag = mu_mag
-    execute_on = 'timestep_end'
-  [../]
-  [./aux_fy]
-    type = Fy
-    variable = F_y
-    mumag = mu_mag
-    execute_on = 'timestep_end'
   [../]
   [./aux_fz]
     type = Fz

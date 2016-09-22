@@ -1,16 +1,23 @@
 [Mesh]
-  type = FileMesh
-  file = exodus_stanadyne_arm0_baseline.e
-  #block 1: solenoid
-  #block 2: armature
-  #block 3: medium around these structures
+  type = GeneratedMesh
+  dim = 3
+  nx = 60
+  ny = 60
+  nz = 60
+  xmin = -10
+  xmax = 10
+  ymin = -10
+  ymax = 10
+  zmin = -10
+  zmax = 10
+  elem_type = HEX8
 []
 
 [GlobalParams]
     #-------------------#Mesh is in millimeters#---------------------------------#
     mu = 0.000049474            #Henries/meter converted to T*mm/A. converted to T*in/A.
     i = 8.0                     #Amperes [A]-- SD uses 6.0 -- 10.0 [A]
-    a = 4.25                    #inches [in] according to some introspective CUBITing
+    a = 2                    #inches [in] according to some introspective CUBITing
     loc_x = 0.0                 # F = 3.57 for i = 8.0 with block restrict mumag
     loc_y = 0.0                 #
     loc_z = -1.1628             #inches according to some introspective CUBITing
@@ -44,22 +51,6 @@
     family = MONOMIAL
     order = FIRST
   [../]
-  [./mu_mag]
-    family = MONOMIAL
-    order = FIRST
-  [../]
-  [./F_z]
-    family = MONOMIAL
-    order = FIRST
-  [../]
-  [./F_x]
-    family = MONOMIAL
-    order = FIRST
-  [../]
-  [./F_y]
-    family = MONOMIAL
-    order = FIRST
-  [../]
 []
 
 [AuxKernels]
@@ -86,47 +77,6 @@
     Hy = H_y
     Hz = H_z
     execute_on = 'timestep_begin'
-  [../]
-  [./aux_Mumag]
-    block = '2 3'
-    type = MuMag
-    variable = mu_mag
-    Hx = H_x
-    Hy = H_y
-    Hz = H_z
-    A = 1.42772 #From the fit of Fig 2 -- these are in [T, A, inches] 
-    B = 0.0605239
-    C = -2.99835
-    D = 0.459
-    E = 0.0745812
-    mu00 = 0   #this stuff can be removed in the auxkernel
-    mu01 = 0
-    mu02 = 0
-    mu10 = 0
-    mu11 = 0
-    mu12 = 0
-    mu20 = 0
-    mu21 = 0
-    mu22 = 0
-    execute_on = 'timestep_begin'
-  [../]
-  [./aux_fx]
-    type = Fx
-    variable = F_x
-    mumag = mu_mag
-    execute_on = 'timestep_end'
-  [../]
-  [./aux_fy]
-    type = Fy
-    variable = F_y
-    mumag = mu_mag
-    execute_on = 'timestep_end'
-  [../]
-  [./aux_fz]
-    type = Fz
-    variable = F_z
-    mumag = mu_mag
-    execute_on = 'timestep_end'
   [../]
 []
 
@@ -157,14 +107,6 @@
   [../]
 []
 
-[Postprocessors]
-   [./total_F] #gives result in kg inch/s^2 == 0.0254 Newtons
-    block = '2'
-    type = ElementAverageValue
-    variable = F_z
-   [../]
-[]
-
 [Preconditioning]
   [./smp]
     type = SMP
@@ -184,7 +126,7 @@
   print_perf_log = true
   [./out]
     type = Exodus
-    file_base = solenoid_baseline_test_1
+    file_base = solenoid_test
     elemental_as_nodal = true
     execute_on = 'timestep_end'
   [../]
