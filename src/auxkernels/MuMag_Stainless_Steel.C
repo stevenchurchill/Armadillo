@@ -1,4 +1,4 @@
-#include "MuMag.h"
+#include "MuMag_Stainless_Steel.h"
 
 
 //This auxkernel calculates the residual magnetic field at a point based on the magnitude of the applied field
@@ -7,7 +7,7 @@
 
 template<>
 
-InputParameters validParams<MuMag>()
+InputParameters validParams<MuMag_Stainless_Steel>()
 
 {
   InputParameters params = validParams<AuxKernel>();
@@ -33,7 +33,7 @@ InputParameters validParams<MuMag>()
 }
 
 
-MuMag::MuMag(const InputParameters & parameters) :
+MuMag_Stainless_Steel::MuMag_Stainless_Steel(const InputParameters & parameters) :
   AuxKernel(parameters),
    _Hx(coupledValue("Hx")),
    _Hy(coupledValue("Hy")),
@@ -60,7 +60,7 @@ MuMag::MuMag(const InputParameters & parameters) :
 }
 
 Real
-MuMag::computeValue()
+MuMag_Stainless_Steel::computeValue()
 
 {
 //(_Hx[_qp] * _Hx[_qp] * _mu00 + _Hx[_qp] * _Hy[_qp] * _mu01 + _Hx[_qp] * _Hz[_qp] * _mu02 + _Hx[_qp] * _Hy[_qp] * _mu10 + _Hy[_qp] * _Hy[_qp] * _mu11 + _Hz[_qp] * _Hy[_qp] * _mu12 + _Hx[_qp] * _Hz[_qp] * _mu20 + _Hz[_qp] * _Hy[_qp] * _mu21 + _Hz[_qp] * _Hz[_qp] *_mu22);
