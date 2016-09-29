@@ -91,7 +91,7 @@
   [../]
   [./aux_Mumag]
     block = '2 5'
-    type = MuMag
+    type = MuMagSquared
     variable = mu_mag
     Hx = H_x
     Hy = H_y
@@ -114,7 +114,7 @@
   [../]
   [./aux_Mumag_Stainless_Steel]
     block = '3'
-    type = MuMag
+    type = MuMagSquared
     variable = mu_mag
     Hx = H_x
     Hy = H_y

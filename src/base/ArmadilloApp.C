@@ -14,6 +14,7 @@
 #include "HMag.h"
 
 #include "MuMag.h"
+#include "MuMagSquared.h"
 
 #include "FarFieldBC.h"
 
@@ -133,6 +134,7 @@ ArmadilloApp::registerObjects(Factory & factory)
 
   registerAuxKernel(BMag);
   registerAuxKernel(MuMag);
+  registerAuxKernel(MuMagSquared);
 
   registerAuxKernel(Fz);
   registerAuxKernel(Fy);
