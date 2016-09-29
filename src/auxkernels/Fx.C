@@ -14,6 +14,7 @@ InputParameters validParams<Fx>()
 Fx::Fx(const InputParameters & parameters) :
   AuxKernel(parameters),
    _mumag_grad(coupledGradient("mumag"))
+
 {
 }
 

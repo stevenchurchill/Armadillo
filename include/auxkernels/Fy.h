@@ -22,7 +22,6 @@ protected:
 
 private:
   const VariableGradient & _mumag_grad;
-
 };
 
 #endif /* FY_H */

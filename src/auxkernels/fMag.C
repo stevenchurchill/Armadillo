@@ -21,5 +21,5 @@ Real
 fMag::computeValue()
 
 {
-    return std::pow(std::pow(_mumag_grad[_qp](0), 2.0) + std::pow(_mumag_grad[_qp](1), 2.0) + std::pow(_mumag_grad[_qp](2), 2.0),0.5)  ;
+    return std::pow(std::pow(_mumag_grad[_qp](0), 2.0) + std::pow(_mumag_grad[_qp](1), 2.0) + std::pow(_mumag_grad[_qp](2), 2.0),0.5);
 }

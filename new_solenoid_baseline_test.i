@@ -10,14 +10,14 @@
 
 [GlobalParams]
     #-------------------#Mesh is in millimeters#---------------------------------#
-    mu = 0.000049474            #Henries/meter converted to T*mm/A. converted to T*in/A.
+    mu = 1.256e-3              #Henries/meter converted to T*mm/A
     i = 8.0                     #Amperes [A]-- SD uses 6.0 -- 10.0 [A]
-    a = 4.25                    #inches [in] according to some introspective CUBITing
+    a = 4.45                    #millimeters [mm] according to some introspective CUBITing
     loc_x = 0.0                 # F = 3.57 for i = 8.0 with block restrict mumag
     loc_y = 0.0                 #
-    loc_z = -1.1628             #inches according to some introspective CUBITing
+    loc_z = -1.1628             #millimeters according to some introspective CUBITing
     N =  29.0                   #They have 29.5 --- does it make sense to have a half turn?
-    solenoid_height = -5.36     #inches according to some introspective CUBITing
+    solenoid_height = 5.36      #millimeters according to some introspective CUBITing
     translation_direction = 1.0 #Should make to a vector..see issue about refactoring
 []
 
@@ -47,10 +47,6 @@
     order = FIRST
   [../]
   [./mu_mag]
-    family = MONOMIAL
-    order = FIRST
-  [../]
-  [./mu_mag_stainless_steel]
     family = MONOMIAL
     order = FIRST
   [../]
@@ -100,10 +96,10 @@
     Hx = H_x
     Hy = H_y
     Hz = H_z
-    A = 1.42772 #From the fit of Fig 2 -- these are in [T, A, inches] 
-    B = 0.0605239
-    C = -2.99835
-    D = 0.459
+    A = 1.42772 #From the fit of Fig 2 -- these are in [T, A, mm] 
+    B = 7.68653
+    C = -.132035
+    D = -.374389
     E = 0.0745812
     mu00 = 0   #this stuff can be removed in the auxkernel
     mu01 = 0
@@ -118,15 +114,15 @@
   [../]
   [./aux_Mumag_Stainless_Steel]
     block = '3'
-    type = MuMag_Stainless_Steel
-    variable = mu_mag_stainless_steel
+    type = MuMag
+    variable = mu_mag
     Hx = H_x
     Hy = H_y
     Hz = H_z
     A = 1.63694 #From stainless steel fit 
-    B = 0.234778
-    C = -7.73767
-    D = -.204897
+    B = 2.34778
+    C = 0.0160949
+    D = 1.64944
     E = 0.0470473
     mu00 = 0   #this stuff can be removed in the auxkernel
     mu01 = 0
@@ -187,10 +183,18 @@
 []
 
 [Postprocessors]
-   [./total_F] #gives result in kg inch/s^2 == 0.0254 Newtons
-    block = '2'
-    type = ElementAverageValue
+   [./total_F] #gives result in kg mm/s^2 == 0.001 Newtons
+    block = '2 3'
+    type = ElementIntegralVariablePostprocessor
     variable = F_z
+   [../]
+   [./volume2]
+    block = '2'
+    type = VolumePostprocessor
+   [../]
+   [./volume3]
+    block = '3'
+    type = VolumePostprocessor
    [../]
 []
 
